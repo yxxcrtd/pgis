@@ -1,0 +1,111 @@
+<html>
+
+<head>
+
+</head>
+<body>
+
+<style>
+
+
+    @font-face {
+        font-family: kaiti_GB2312;
+        src: url('kaiti_GB2312.ttf')
+    }
+
+    body {
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+
+    }
+
+    div {
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        width: 160px;
+        height: 32px;
+        font-size: 16px;
+        font-weight: bolder;
+        font-family: kaiti_GB2312;
+        text-align: center;
+        line-height: 32px;
+        color: red;
+        background-color: black;
+        font-weight: bolder;
+    }
+
+    marquee {
+        width: 160px;
+        height: 32px;
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        line-height: 32px;
+    }
+</style>
+
+<div>
+    <marquee loop='-1' behavior='scroll' direction="left">
+    </marquee>
+</div>
+
+
+<script>
+
+    /**
+     */
+    function changeContent(program){
+
+        var isScroll = program.scroll;
+        var content = program.content;
+        //替换dom html信息
+        var color = program.color;
+        var fontSize = program.fontSize;
+        var div = document.getElementsByTagName('div')[0];
+        div.style.color = color ? color : 'red';
+        div.style.fontSize =fontSize;
+        if (isScroll) {
+            var interval = program.interval;
+            var step = program.step;
+            var marqueeDom = document.createElement("marquee");
+            marqueeDom.scrollDelay = interval;
+            marqueeDom.scrollAmount = step ? step : 1;
+            marqueeDom.loop = -1;
+            marqueeDom.behavior = 'scroll';
+            marqueeDom.direction = 'left';
+            marqueeDom.innerHTML = content;
+            div.innerHTML="";
+            div.appendChild(marqueeDom);
+        } else {
+            div.innerHTML = content;
+        }
+    }
+
+    //获取请求参数
+    function getParams() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+            }
+        }
+        return theRequest;
+    }
+
+    function init(){
+        var params =getParams();
+        var initText = params.initText? params.initText : "感谢使用谷声科技产品！" ;
+        initText = decodeURI(initText);
+        var domMarquee = document.getElementsByTagName("marquee")[0];
+        domMarquee.textContent = initText;
+    }
+    init();
+</script>
+
+</body>
+</html>

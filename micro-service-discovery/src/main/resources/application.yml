@@ -1,0 +1,21 @@
+server:
+    port: 8761
+
+spring:
+    application:
+        name: discovery
+
+eureka:
+    instance:
+        hostname: discovery
+        prefer-ip-address: true
+    client:
+#        register-with-eureka: false # 是否将自己注册到：Eureka Server，默认是：true，由于当前应用就是：Eureka Server，故而设为：false
+        fetch-registry: false # 是否从：Eureka Server 获取注册信息，默认是：true，因为这是一个单点的：Eureka Server，不需要同步其他的：Eureka Server 节点数据
+        serviceUrl:
+            defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+
+#logging:
+#    level:
+#        root: DEDUG # 调试用

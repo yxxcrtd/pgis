@@ -1,0 +1,60 @@
+调试天坛医院诱导屏
+
+一，接诱导屏硬件
+
+
+二，使用 LedSet 调屏工具
+	1，连接 3G 的wifi
+	2，打开 LedSet ，刷新看到控制卡
+	3，设置 RealTimeServer：点：WEB参数和WiFi参数设置
+		1，（Web服务器地址：m2mled.net）设置公司id：igoosd，发送
+		2，设置APN，选择：China Unicom (3G/4G) / 中国联通3g网络（China unicom）
+		3，设置RealTime服务地址：47.100.219.142:15498，发送
+		4，这个时候，在熙讯官网()应该能看到控制卡在线了
+	4，设置 RealTimeServer：点：级联方式设置
+		1，模组宽：16；模组高：8
+		2，接收卡宽度：32；接收卡高度：16
+		3，点：应用到当前接收卡
+		4，点：保存到硬件
+		5，发送到级联参数
+		6，保存配置文件
+	5，开始第一个配置向导
+		1，
+		2，
+		3，
+		4，
+	
+问题：
+	1，如果无法联网，需要在：http://192.168.43.1:3000 中设置网络，
+		1，打开3G开关
+		2，APN设置：国家码：460，APN 接入点：China Unicom (3G/4G)
+	2，如果使用 wifi 连接的话，关闭 APN，并发送
+
+
+
+
+
+
+
+一，检查 RealTimeServer：
+	1，访问地址：http://47.100.219.142:15498，如果访问出现：Not Found，404 就说明 RealtimeServer 已经启动好了
+	2，使用：ps -ef | grep node
+	3，启动：nohup /home/node/RealtimeServer/bin/www &
+	4，查看日志：tailf /home/node/RealtimeServer/bin/nohup.out
+
+
+二，检查 tomcat：
+	1，/home/pgis/tomcat/bin/shutdown.sh
+	2，/home/pgis/tomcat/bin/startup.sh
+	3，tailf /home/pgis/tomcat/logs/catalina.out
+
+
+二，诱导系统：http://47.100.219.142:8088（admin/Mozilla10.0.2）
+
+三，检查熙讯官网的控制卡在不在线：https://www.m2mled.net/login（igoosd/Mozilla10.0.2）
+
+
+调试：
+1，scp micro-service-provider/micro-service-provider-static/target/classes/com/igoosd/api/ParkingController.class root@47.100.219.142:/home/pgis/tomcat/webapps/ROOT/WEB-INF/classes/com/igoosd/api
+2，scp AcceptorService.class root@114.251.146.230:/home/pgis/tomcat/webapps/ROOT/WEB-INF/classes/com/igoosd/biz
+3，模拟post：http://www.atool.org/httptest.php

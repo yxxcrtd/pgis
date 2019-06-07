@@ -1,0 +1,24 @@
+server:
+    port: 8010
+
+spring:
+    application:
+        name: micro-service-consumer-user
+
+    devtools:
+        restart:
+#            additional-paths: target/classes/
+            additional-paths: micro-service-consumer/micro-service-consumer-user/target/classes/
+
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://discovery:8761/eureka/
+        instance:
+            prefer-ip-address: true # 将自己的IP注册到：Eureka Server，如果不设置或设为：false，则表示注册微服务所在的操作系统的 hostname 到 Eureka Server
+
+
+#logging:
+#    level:
+#        root: DEDUG # 调使用

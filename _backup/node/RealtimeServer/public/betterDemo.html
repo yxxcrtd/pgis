@@ -1,0 +1,30 @@
+
+<body style="margin:0; padding:0; background: black; color:red">
+	<marquee id="m1" direction="up" width="100" height="200" scrollamount="2" style="position:absolute; top: 100px; left:30px;">
+	I<br>
+	can<br>
+	scroll
+	</marquee>
+
+	<marquee id="m2" direction="up" width="100" height="200" scrollamount="2">
+	I<br>
+	can<br>
+	scroll
+	</marquee>
+
+	<marquee id="m3" direction="up" width="100" height="200" scrollamount="2">
+	I<br>
+	can<br>
+	scroll
+	</marquee>
+
+	<script>
+	function changeText(id,text,direction){
+		var marquee = document.getElementById(id);
+		marquee.innerHTML = text;
+		marquee.direction = direction;
+	}
+	//test
+	changeText('m1','how<br>are<br>you<br>?','down')
+	</script>
+</body>

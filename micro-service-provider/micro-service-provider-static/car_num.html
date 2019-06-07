@@ -1,0 +1,105 @@
+<body id="body">
+
+
+
+
+
+<style>
+
+    @font-face {
+        font-family: igoosd;
+        src: url('Console.ttf')
+    }
+
+    body{
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+		background:black;
+    }
+
+    div {
+        margin: 0px;
+        border: 0px;
+        padding: 0px;
+        width: 32px;
+        height: 16px;
+        font-size: 16px;
+        font-family: igoosd;
+        font-weight: bolder;
+        text-align: center;
+		line-height:16px;
+		//letter-spacing:1px;
+    }
+
+</style>
+
+<script>
+
+
+	/**
+	*	改变
+	**/
+	function changeText(screenId,car_num) {
+
+        var divDom = document.getElementById('div_'+screenId);
+		modifyDom(divDom,car_num);
+        
+    }
+
+    /**自动补零**/
+    function PrefixInteger(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
+    
+    //获取请求参数
+    function getParams() {
+        var url = location.search; //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1) {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+            }
+        }
+        return theRequest;
+    }
+
+	var WARN_NUM = 30;
+    //修改颜色和内容
+    function modifyDom(dom,content){
+        content = (!content || content < 0)? 0 : Number(content);
+        dom.textContent = PrefixInteger(content,3);//补零处理
+        if(content <= 0){
+            dom.style.color = 'red';
+        }else if(content <= WARN_NUM){
+            dom.style.color = 'yellow';
+        }else{
+            dom.style.color = 'green';
+        }
+    }
+    //init function 要求screen ids 参数为 a-b-c-d  abcd 排序后台创建好，切 id 不允许存在 - 字符
+    function init() {
+        var paramArray = getParams();
+        var ids = paramArray['ids'].split("-");
+        var nums = paramArray['nums'].split("-");
+        var warnNum = paramArray['warn_num'];
+		WARN_NUM = warnNum ? warnNum : Number(WARN_NUM);
+        var body = document.getElementsByTagName("body")[0];
+        //循环便利
+        for(var i=0;i<ids.length;i++){
+            var id = 'div_'+ids[i];
+            var num = nums[i];
+            var div = document.createElement("div");
+            div.id=id;
+            modifyDom(div,num);
+            body.appendChild(div);
+        }
+    }
+	//初始化函数
+    init();
+</script>
+
+
+</body>

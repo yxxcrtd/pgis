@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE dummy>
+<FpgaParam>
+
+  <Register Address="10101" Value="40">uiUnitWidth</Register>
+
+  <Register Address="10101" Value="48">uiRealUnitWidth</Register>
+
+  <Register Address="10101" Value="0">uiColumeDelteStart</Register>
+
+  <Register Address="10101" Value="40">uiUnitHeight</Register>
+
+  <Register Address="10101" Value="64">uiRealUnitHeight</Register>
+
+  <Register Address="10101" Value="40">uiLineDelteStart</Register>
+
+  <Register Address="10101" Value="4">uiDataGroupNum</Register>
+
+</FpgaParam>

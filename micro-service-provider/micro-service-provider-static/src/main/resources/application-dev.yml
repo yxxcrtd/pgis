@@ -1,0 +1,104 @@
+server:
+    port: 8088
+
+session:
+    expiration: 30 # Session 失效时间（单位：分钟）
+
+
+spring:
+    profiles:
+      active: dev
+    jackson:
+        time-zone: GMT+8
+        date-format: yyyy-MM-dd HH:mm:ss
+    mvc:
+        favicon:
+          enabled: false
+
+
+    application:
+        name: micro-service-provider-static
+
+    jpa:
+        generate-ddl: false
+        show-sql: true
+        hibernate:
+            ddl-auto: none
+    datasource:
+        driverClassName: org.postgresql.Driver
+        druid:
+            url: jdbc:postgresql://47.100.219.142:5432/pgis #?socketTimeout=1&connectTimeout=1 # 实际是 * 1000，单位：秒。socket操作（读写）超时，单位：毫秒。 0表示永不超时；和数据库服务器建立socket连接时的超时，单位：毫秒。 0表示永不超时，适用于JDK 1.4及更高版本
+            username: pgis
+            password: Mozilla10.0.2
+            type: com.alibaba.druid.pool.DruidDataSource
+            initialSize: 10 # 初始化连接个数
+            minIdle: 10 # 连接池最小个数
+            maxActive: 100 # 连接池最大个数--已过期 不在使用
+            maxWait: 60000 # 获取连接等待超时的时间，单位：毫秒
+            timeBetweenEvictionRunsMillis: 90000 #60s间隔
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: SELECT 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxPoolPreparedStatementPerConnectionSize: 20
+
+    redis:
+        database: 0
+        host: 47.100.219.142
+        port: 5555
+        password: igoosd.com
+        pool:
+            max-idle: 8
+            min-idle: 0
+            max-active: 8
+            max-wait: -1
+        timeout: 0
+
+
+    freemarker:
+        suffix: .html
+        cache: false
+        charset: UTF-8
+        allowRequestOverride: false
+        allowSessionOverride: false
+        checkTemplateLocation: false
+        contentType: text/html
+        exposeRequestAttributes: true # 设定所有request的属性在merge到模板的时候，是否要都添加到model中
+        exposeSessionAttributes: false # 设定所有HttpSession的属性在merge到模板的时候，是否要都添加到model中
+        templateEncoding: UTF-8
+        settings:
+            template_update_delay: 0
+            default_encoding: UTF-8
+            classic_compatible: true
+            locale: zh_CN
+            date_format: yyyy-MM-dd
+            time_format: HH:mm:ss
+            datetime_format: yyyy-MM-dd HH:mm:ss
+            auto_import: spring.ftl as s
+
+    devtools:
+        restart:
+#            additional-paths: target/classes/
+            additional-paths: micro-service-provider/micro-service-provider-static/target/classes/
+
+
+logging:
+#    file: /Users/young/Desktop/pgis.log
+    level:
+        ROOT:  INFO #
+#控制卡获取页面的地址拼装参数
+screen:
+    init:
+       domain: http://47.100.219.142:8080/
+       warnNum: 10  # 预警权值 0~${warnNum} 显示黄色
+# realTime Server
+retrofit:
+    base-url: http://47.100.219.142:15498/
+    timeout: 3 #单位 s
+
+# 杭州立方
+key:
+    auth_id: 15498
+    auth_key: 43448f85432e1077607988fd5a475d1d

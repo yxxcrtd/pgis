@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+    micro-service-discovery:
+        image: micro-service-discovery
+        restart: always
+        ports:
+            - "8761:8761"
+
+
+    micro-service-provider-static:
+        image: micro-service-provider-static
+        restart: always
+        ports:
+            - "8000:8000"
+
