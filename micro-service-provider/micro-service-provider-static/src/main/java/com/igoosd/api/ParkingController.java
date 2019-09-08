@@ -73,13 +73,17 @@ public class ParkingController extends BaseController<Parking> {
     @ApiOperation("remain")
     @PostMapping("remain")
     ResultMsg remain(@RequestParam String key, @RequestParam Long pid, @RequestParam int count) {
-        log.info("接收到的key：{}", key);
-        log.info("接收到的pid：{}", pid);
-        log.info("接收到的数值：{}", count);
+        log.info("==接收到的key：{}", key);
+        log.info("==接收到的pid：{}", pid);
+        log.info("==接收到的数值：{}", count);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-        String localKey = MD5.toMD5(authId + authKey + sdf.format(new Date()));
-        log.info("本地生成的key：{}", localKey);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
+        String toMd5 = authId + authKey + sdf.format(new Date());
+        log.info("==将要加密的字符串：{}", toMd5);
+
+        String localKey = MD5.toMD5(toMd5);
+        log.info("==本地生成的key：{}", localKey);
+
         if (!key.endsWith(localKey)) {
             return resultFail(501, "授权失败");
         }
@@ -89,7 +93,8 @@ public class ParkingController extends BaseController<Parking> {
         }
 
         if (999 < count) {
-            return resultFail(504, "剩余车位数不能超过1000！");
+            // return resultFail(504, "剩余车位数不能超过1000！");
+            count = 999;
         }
 
         Parking parking = parkingService.getEntityById(pid);

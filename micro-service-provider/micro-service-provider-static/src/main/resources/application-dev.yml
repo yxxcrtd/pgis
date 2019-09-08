@@ -91,7 +91,7 @@ logging:
 #控制卡获取页面的地址拼装参数
 screen:
     init:
-       domain: http://47.100.219.142:8080/
+       domain: http://47.100.219.142:8088/
        warnNum: 10  # 预警权值 0~${warnNum} 显示黄色
 # realTime Server
 retrofit:
